@@ -12,6 +12,22 @@ body {
     overflow-x: hidden;
 }
 
+.container-turn {
+    width: 250px;
+    height: 120px;
+    display: grid;
+    place-items: center;
+    z-index: 2;
+    position: absolute;
+    visibility:hidden;
+    opacity:0;
+    transition: visibility 0.3s linear,opacity 0.3s linear;
+}
+
+#turn {
+    font-size: 30px;
+}
+
 .row {
     display: flex;
 }

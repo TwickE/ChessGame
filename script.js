@@ -34,3 +34,22 @@ function insertImage() {
     });
 }
 insertImage();
+
+document.addEventListener("keydown", function(event) {
+    if(event.key == "Enter") {
+        const alert = document.querySelector('.container-turn');
+        alert.style.visibility = 'visible';
+        alert.style.opacity = '1';
+        alert.style.backgroundColor = 'white';
+        alert.style.border = '3px solid black';
+        alert.style.borderRadius = '10px';
+
+        const turn = document.getElementById('turn');
+        turn.innerText = "White's turn"
+
+        setTimeout(function(){
+            alert.style.visibility = 'hidden';
+            alert.style.opacity = '0';
+       }, 1000);
+    }
+});
