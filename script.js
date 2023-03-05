@@ -37,15 +37,19 @@ insertImage();
 
 document.addEventListener("keydown", function(event) {
     if(event.key == "Enter") {
+        const body = document.querySelector('body');
+        body.style.backgroundColor = '#353333';
+
         const alert = document.querySelector('.container-turn');
         alert.style.visibility = 'visible';
         alert.style.opacity = '1';
-        alert.style.backgroundColor = 'white';
-        alert.style.border = '3px solid black';
+        alert.style.backgroundColor = '#353333';
+        alert.style.border = '3px solid #c9c9c9';
         alert.style.borderRadius = '10px';
 
         const turn = document.getElementById('turn');
-        turn.innerText = "White's turn"
+        turn.style.color = '#c9c9c9';
+        turn.innerText = "Black's Turn";
 
         setTimeout(function(){
             alert.style.visibility = 'hidden';

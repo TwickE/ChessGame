@@ -7,9 +7,12 @@
 
 body {
     font-family: "Poppins", sans-serif;
-    display: grid;
-    place-items: center;
-    overflow-x: hidden;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* background-color: #353333; */
+    background-color: #C9C9C9;
 }
 
 .container-turn {
@@ -17,8 +20,11 @@ body {
     height: 120px;
     display: grid;
     place-items: center;
-    z-index: 2;
-    position: absolute;
+    z-index: 3;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     visibility:hidden;
     opacity:0;
     transition: visibility 0.3s linear,opacity 0.3s linear;
@@ -28,6 +34,17 @@ body {
     font-size: 30px;
 }
 
+.borders {
+    width: 608px;
+    height: 608px;
+    background-color: black;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
 .row {
     display: flex;
 }
@@ -35,6 +52,8 @@ body {
 ul {
     display: grid;
     grid-template-columns: 1fr;
+    position: relative;
+    z-index: 2;
 }
 
 li {
