@@ -47,7 +47,7 @@ document.querySelectorAll('.tile').forEach(tile => {
                 tile.style.backgroundColor = pieceSelected;
                 const pieceName = tile.innerText.slice(1);
                 const position = tile.id;
-                console.log(pieceName, position);
+                moves(pieceName, position);
             }
         }
     });
@@ -56,41 +56,68 @@ document.querySelectorAll('.tile').forEach(tile => {
 //Move the pieces
 function moves(pieceName, position) {
     //PAWN
-    //convert position to coordinates
     if(pieceName === "pawn") {
+        //convert position to coordinates
         const letters = ["a", "b", "c", "d", "e", "f", "g", "h"];
-        const row = position[0];
+        const row = parseInt(position[0]);
         const col = letters.indexOf(position[1]) + 1;
-        console.log(row, col);
 
         //check if pawn is on starting position
         let isFirstMove = false;
-        if (row === 7 && turn === "W") {
+        if (row === 2 && turn === "W") {
             isFirstMove = true;
-        }else if(row === 2 && turn === "B") {
+        }else if(row === 7 && turn === "B") {
             isFirstMove = true;
         }
 
         //calculate potential moves
         const moves = [];
-        if (isFirstMove) {
-            //can move one or two squares forward
-            
-        } else {
-            //can only move one square forward
-            if (row >= 1) {
-            moves.push([col, row - 1]);
+        if(isFirstMove) {
+            //can move one or two tiles forward
+            moves.push([row + 1, col]);
+            moves.push([row + 2, col]);
+
+            //can move one tile diagonally forward if there is an enemy piece to eat
+            if(checkForPiece(`${row + 1}${letters[col - 2]}`)) {
+                moves.push([row + 1, col - 1]);
+            }
+            if(checkForPiece(`${row + 1}${letters[col]}`)) {
+                moves.push([row + 1, col + 1]);
+            }
+        }else {
+            //can move one tile forward
+            moves.push([row + 1, col]);
+
+            //can move one tile diagonally forward if there is an enemy piece to eat
+            if(checkForPiece(`${row + 1}${letters[col - 2]}`)) {
+                moves.push([row + 1, col - 1]);
+            }
+            if(checkForPiece(`${row + 1}${letters[col]}`)) {
+                moves.push([row + 1, col + 1]);
             }
         }
 
         //convert coordinates back to position format
-        const validMoves = moves.map(move => String.fromCharCode(move[0] + 97) + (8 - move[1]));
-
+        const validMoves = [];
+        moves.forEach(move => {
+            const row = move[0];
+            const col = move[1];
+            const position = `${row}${letters[col - 1]}`;
+            validMoves.push(position);
+        });
         console.log(validMoves);
-    }
-    
+    }   
 }
-moves("pawn", "2e");
+
+function checkForPiece(position) {
+    const tile = document.getElementById(position);
+    console.log(position, tile.innerText.length);
+    if(tile.innerText.length !== 0) {
+        return true;
+    }else {
+        return false;
+    }
+}
 
 /* document.addEventListener("keydown", function(event) {
     if(event.key == "Enter") {
