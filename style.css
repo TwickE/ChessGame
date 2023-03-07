@@ -127,3 +127,11 @@ li {
     background-color: black;
     z-index: 1;
 }
+
+.hintMove {
+    background: url(/images/HintMove.png);
+}
+
+.hintEat {
+    background: url(/images/HintEat.png);
+}

@@ -106,9 +106,11 @@ function moves(pieceName, position) {
             validMoves.push(position);
         });
         console.log(validMoves);
+        giveHints(validMoves);
     }   
 }
 
+//Check if there is a piece on the tile and if it is an enemy piece
 function checkForPiece(position, myColor) {
     const tile = document.getElementById(position);
     if(tile.innerText.length !== 0) {
@@ -120,6 +122,18 @@ function checkForPiece(position, myColor) {
     }else {
         return false;
     }
+}
+
+//Give hints to the valid moves
+function giveHints(validMoves) {
+    validMoves.forEach(move => {
+        const tile = document.getElementById(move);
+        if(tile.innerText.length !== 0) {
+            tile.classList.add('hintEat');
+        }else {
+            tile.classList.add('hintMove');
+        }
+    });
 }
 
 /* document.addEventListener("keydown", function(event) {
