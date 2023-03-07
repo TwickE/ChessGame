@@ -78,10 +78,10 @@ function moves(pieceName, position) {
             moves.push([row + 2, col]);
 
             //can move one tile diagonally forward if there is an enemy piece to eat
-            if(checkForPiece(`${row + 1}${letters[col - 2]}`)) {
+            if(checkForPiece(`${row + 1}${letters[col - 2]}`, turn)) {
                 moves.push([row + 1, col - 1]);
             }
-            if(checkForPiece(`${row + 1}${letters[col]}`)) {
+            if(checkForPiece(`${row + 1}${letters[col]}`, turn)) {
                 moves.push([row + 1, col + 1]);
             }
         }else {
@@ -89,10 +89,10 @@ function moves(pieceName, position) {
             moves.push([row + 1, col]);
 
             //can move one tile diagonally forward if there is an enemy piece to eat
-            if(checkForPiece(`${row + 1}${letters[col - 2]}`)) {
+            if(checkForPiece(`${row + 1}${letters[col - 2]}`, turn)) {
                 moves.push([row + 1, col - 1]);
             }
-            if(checkForPiece(`${row + 1}${letters[col]}`)) {
+            if(checkForPiece(`${row + 1}${letters[col]}`, turn)) {
                 moves.push([row + 1, col + 1]);
             }
         }
@@ -109,11 +109,14 @@ function moves(pieceName, position) {
     }   
 }
 
-function checkForPiece(position) {
+function checkForPiece(position, myColor) {
     const tile = document.getElementById(position);
-    console.log(position, tile.innerText.length);
     if(tile.innerText.length !== 0) {
-        return true;
+        if(tile.innerText[0] !== myColor) {
+            return true;
+        }else {
+            return false;
+        }
     }else {
         return false;
     }
