@@ -168,6 +168,74 @@ function moves(pieceName, position) {
         }
     }
 
+    //KNIGHT
+    if(pieceName === "knight") {
+        //can move two tiles up and one tile to the right
+        try {
+            if(checkForPiece(`${row + 2}${letters[col]}`, turn) !== "pieceTeam") {
+                moves.push([row + 2, col + 1]);
+            }
+        }catch(err) {
+            console.log(err);
+        }
+        //can move two tiles up and one tile to the left
+        try {
+            if(checkForPiece(`${row + 2}${letters[col - 2]}`, turn) !== "pieceTeam") {
+                moves.push([row + 2, col - 1]);
+            }
+        }catch(err) {
+            console.log(err);
+        }
+        //can move two tiles down and one tile to the right
+        try {
+            if(checkForPiece(`${row - 2}${letters[col]}`, turn) !== "pieceTeam") {
+                moves.push([row - 2, col + 1]);
+            }
+        }catch(err) {
+            console.log(err);
+        }
+        //can move two tiles down and one tile to the left
+        try {
+            if(checkForPiece(`${row - 2}${letters[col - 2]}`, turn) !== "pieceTeam") {
+                moves.push([row - 2, col - 1]);
+            }
+        }catch(err) {
+            console.log(err);
+        }
+        //can move one tile up and two tiles to the right
+        try {
+            if(checkForPiece(`${row + 1}${letters[col + 1]}`, turn) !== "pieceTeam") {
+                moves.push([row + 1, col + 2]);
+            }
+        }catch(err) {
+            console.log(err);
+        }
+        //can move one tile up and two tiles to the left
+        try {
+            if(checkForPiece(`${row + 1}${letters[col - 3]}`, turn) !== "pieceTeam") {
+                moves.push([row + 1, col - 2]);
+            }
+        }catch(err) {
+            console.log(err);
+        }
+        //can move one tile down and two tiles to the right
+        try {
+            if(checkForPiece(`${row - 1}${letters[col + 1]}`, turn) !== "pieceTeam") {
+                moves.push([row - 1, col + 2]);
+            }
+        }catch(err) {
+            console.log(err);
+        }
+        //can move one tile down and two tiles to the left
+        try {
+            if(checkForPiece(`${row - 1}${letters[col - 3]}`, turn) !== "pieceTeam") {
+                moves.push([row - 1, col - 2]);
+            }
+        }catch(err) {
+            console.log(err);
+        }
+    }
+
     //convert coordinates back to position format
     const validMoves = [];
     moves.forEach(move => {
