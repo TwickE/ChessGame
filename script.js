@@ -75,21 +75,21 @@ function moves(pieceName, position) {
         //calculate possible moves
         if(isFirstMove) {
             //can move one or two tiles forward
-            if(checkForPiece(`${row + 1}${letters[col - 1]}`, turn) === false){
+            if(checkForPiece(`${row + 1}${letters[col - 1]}`, turn) === "noPiece"){
                 moves.push([row + 1, col]);
                 moves.push([row + 2, col]);
             }
 
             //can move one tile diagonally forward if there is an enemy piece to eat
             try {
-                if(checkForPiece(`${row + 1}${letters[col - 2]}`, turn)) {
+                if(checkForPiece(`${row + 1}${letters[col - 2]}`, turn) === "pieceEnemy") {
                     moves.push([row + 1, col - 1]);
                 }
             }catch(err) {
                 console.log(err);
             }
             try {
-                if(checkForPiece(`${row + 1}${letters[col]}`, turn)) {
+                if(checkForPiece(`${row + 1}${letters[col]}`, turn) === "pieceEnemy") {
                     moves.push([row + 1, col + 1]);
                 }
             }catch(err) {
@@ -98,20 +98,20 @@ function moves(pieceName, position) {
             
         }else {
             //can move one tile forward
-            if(checkForPiece(`${row + 1}${letters[col - 1]}`, turn) === false){
+            if(checkForPiece(`${row + 1}${letters[col - 1]}`, turn) === "noPiece"){
                 moves.push([row + 1, col]);
             }
 
             //can move one tile diagonally forward if there is an enemy piece to eat
             try {
-                if(checkForPiece(`${row + 1}${letters[col - 2]}`, turn)) {
+                if(checkForPiece(`${row + 1}${letters[col - 2]}`, turn) === "pieceEnemy") {
                     moves.push([row + 1, col - 1]);
                 }
             }catch(err) {
                 console.log(err);
             }
             try {
-                if(checkForPiece(`${row + 1}${letters[col]}`, turn)) {
+                if(checkForPiece(`${row + 1}${letters[col]}`, turn) === "pieceEnemy") {
                     moves.push([row + 1, col + 1]);
                 }
             }catch(err) {
@@ -119,6 +119,63 @@ function moves(pieceName, position) {
             }
         }
     }
+
+    //ROOK
+    if(pieceName === "rook") {
+        const enemiesColumn = [];
+        const columnScore = [];
+        const enemiesRow = [];
+        const rowScore = [];
+
+        //check all tiles in the same row
+        for(let i = 1; i <= 8; i++) {
+            if(i !== col) {
+                if(checkForPiece(`${row}${letters[i - 1]}`, turn) === "noPiece") {
+                    moves.push([row, i]);
+                }
+                if(checkForPiece(`${row}${letters[i - 1]}`, turn) === "pieceEnemy") {
+                    enemiesRow.push([row, i]);
+                }
+            }
+        }
+
+        //check all tiles in the same column
+        for(let i = 1; i <= 8; i++) {
+            if(i !== row) {
+                if(checkForPiece(`${i}${letters[col - 1]}`, turn) === "noPiece") {
+                    moves.push([i, col]);
+                }
+                if(checkForPiece(`${i}${letters[col - 1]}`, turn) === "pieceEnemy") {
+                    enemiesColumn.push([i, col]);
+                }
+            }
+        }
+
+        try {
+            enemiesColumn.forEach(enemy => {
+                //check for the closest enemy piece
+                columnScore.push(Math.abs(enemy[0] - row));
+            });
+            const colWinner = (columnScore.reduce((a, b) => Math.min(a, b)));
+            const colWinnerIndex = columnScore.indexOf(colWinner);
+            moves.push(enemiesColumn[colWinnerIndex]);
+        }catch(err) {
+            console.log(err);
+        }
+
+        try {
+            enemiesRow.forEach(enemy => {
+                //check for the closest enemy piece
+                rowScore.push(Math.abs(enemy[1] - col));
+            });
+            const rowWinner = (rowScore.reduce((a, b) => Math.min(a, b)));
+            const rowWinnerIndex = rowScore.indexOf(rowWinner);
+            moves.push(enemiesRow[rowWinnerIndex]);
+        }catch(err) {
+            console.log(err);
+        }
+    }
+
     //convert coordinates back to position format
     const validMoves = [];
     moves.forEach(move => {
@@ -136,12 +193,12 @@ function checkForPiece(position, myColor) {
     const tile = document.getElementById(position);
     if(tile.innerText.length !== 0) {
         if(tile.innerText[0] !== myColor) {
-            return true;
+            return "pieceEnemy";
         }else {
-            return false;
+            return "pieceTeam";
         }
     }else {
-        return false;
+        return "noPiece";
     }
 }
 
