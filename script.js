@@ -61,6 +61,7 @@ function moves(pieceName, position) {
         const letters = ["a", "b", "c", "d", "e", "f", "g", "h"];
         const row = parseInt(position[0]);
         const col = letters.indexOf(position[1]) + 1;
+        console.log(row, col);
 
         //check if pawn is on starting position
         let isFirstMove = false;
@@ -74,26 +75,47 @@ function moves(pieceName, position) {
         const moves = [];
         if(isFirstMove) {
             //can move one or two tiles forward
-            moves.push([row + 1, col]);
-            moves.push([row + 2, col]);
+            if(checkForPiece(`${row + 1}${letters[col - 1]}`, turn) === false){
+                moves.push([row + 1, col]);
+                moves.push([row + 2, col]);
+            }
 
             //can move one tile diagonally forward if there is an enemy piece to eat
-            if(checkForPiece(`${row + 1}${letters[col - 2]}`, turn)) {
-                moves.push([row + 1, col - 1]);
+            try {
+                if(checkForPiece(`${row + 1}${letters[col - 2]}`, turn)) {
+                    moves.push([row + 1, col - 1]);
+                }
+            }catch(err) {
+                console.log(err);
             }
-            if(checkForPiece(`${row + 1}${letters[col]}`, turn)) {
-                moves.push([row + 1, col + 1]);
+            try {
+                if(checkForPiece(`${row + 1}${letters[col]}`, turn)) {
+                    moves.push([row + 1, col + 1]);
+                }
+            }catch(err) {
+                console.log(err);
             }
+            
         }else {
             //can move one tile forward
-            moves.push([row + 1, col]);
+            if(checkForPiece(`${row + 1}${letters[col - 1]}`, turn) === false){
+                moves.push([row + 1, col]);
+            }
 
             //can move one tile diagonally forward if there is an enemy piece to eat
-            if(checkForPiece(`${row + 1}${letters[col - 2]}`, turn)) {
-                moves.push([row + 1, col - 1]);
+            try {
+                if(checkForPiece(`${row + 1}${letters[col - 2]}`, turn)) {
+                    moves.push([row + 1, col - 1]);
+                }
+            }catch(err) {
+                console.log(err);
             }
-            if(checkForPiece(`${row + 1}${letters[col]}`, turn)) {
-                moves.push([row + 1, col + 1]);
+            try {
+                if(checkForPiece(`${row + 1}${letters[col]}`, turn)) {
+                    moves.push([row + 1, col + 1]);
+                }
+            }catch(err) {
+                console.log(err);
             }
         }
 
@@ -117,9 +139,12 @@ function checkForPiece(position, myColor) {
         if(tile.innerText[0] !== myColor) {
             return true;
         }else {
+            console.log(1);
             return false;
         }
     }else {
+        console.log(2);
+        console.log(tile.innerText);
         return false;
     }
 }
