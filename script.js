@@ -376,6 +376,58 @@ function moves(pieceName, position) {
         }
     }
 
+    //KING
+    if(pieceName === "king") {
+        //can move one tile to the top right
+        if(row + 1 <= 8 && col + 1 <= 8) {
+            if(checkForPiece(`${row + 1}${letters[col]}`, turn) !== "pieceTeam") {
+                moves.push([row + 1, col + 1]);
+            }
+        }
+        //can move one tile to the top left
+        if(row + 1 <= 8 && col - 1 >= 1) {
+            if(checkForPiece(`${row + 1}${letters[col - 2]}`, turn) !== "pieceTeam") {
+                moves.push([row + 1, col - 1]);
+            }
+        }
+        //can move one tile to the bottom right
+        if(row - 1 >= 1 && col + 1 <= 8) {
+            if(checkForPiece(`${row - 1}${letters[col]}`, turn) !== "pieceTeam") {
+                moves.push([row - 1, col + 1]);
+            }
+        }
+        //can move one tile to the bottom left
+        if(row - 1 >= 1 && col - 1 >= 1) {
+            if(checkForPiece(`${row - 1}${letters[col - 2]}`, turn) !== "pieceTeam") {
+                moves.push([row - 1, col - 1]);
+            }
+        }
+        //can move one tile to the top
+        if(row + 1 <= 8) {
+            if(checkForPiece(`${row + 1}${letters[col - 1]}`, turn) !== "pieceTeam") {
+                moves.push([row + 1, col]);
+            }
+        }
+        //can move one tile to the bottom
+        if(row - 1 >= 1) {
+            if(checkForPiece(`${row - 1}${letters[col - 1]}`, turn) !== "pieceTeam") {
+                moves.push([row - 1, col]);
+            }
+        }
+        //can move one tile to the right
+        if(col + 1 <= 8) {
+            if(checkForPiece(`${row}${letters[col]}`, turn) !== "pieceTeam") {
+                moves.push([row, col + 1]);
+            }
+        }
+        //can move one tile to the left
+        if(col - 1 >= 1) {
+            if(checkForPiece(`${row}${letters[col - 2]}`, turn) !== "pieceTeam") {
+                moves.push([row, col - 1]);
+            }
+        }
+    }
+
     //convert coordinates back to position format
     const validMoves = [];
     moves.forEach(move => {
