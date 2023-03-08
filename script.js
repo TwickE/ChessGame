@@ -55,14 +55,15 @@ document.querySelectorAll('.tile').forEach(tile => {
 
 //Move the pieces
 function moves(pieceName, position) {
+    const moves = [];
+    //convert position to coordinates
+    const letters = ["a", "b", "c", "d", "e", "f", "g", "h"];
+    const row = parseInt(position[0]);
+    const col = letters.indexOf(position[1]) + 1;
+    console.log(row, col);
+
     //PAWN
     if(pieceName === "pawn") {
-        //convert position to coordinates
-        const letters = ["a", "b", "c", "d", "e", "f", "g", "h"];
-        const row = parseInt(position[0]);
-        const col = letters.indexOf(position[1]) + 1;
-        console.log(row, col);
-
         //check if pawn is on starting position
         let isFirstMove = false;
         if (row === 2 && turn === "W") {
@@ -71,8 +72,7 @@ function moves(pieceName, position) {
             isFirstMove = true;
         }
 
-        //calculate potential moves
-        const moves = [];
+        //calculate possible moves
         if(isFirstMove) {
             //can move one or two tiles forward
             if(checkForPiece(`${row + 1}${letters[col - 1]}`, turn) === false){
@@ -118,18 +118,17 @@ function moves(pieceName, position) {
                 console.log(err);
             }
         }
-
-        //convert coordinates back to position format
-        const validMoves = [];
-        moves.forEach(move => {
-            const row = move[0];
-            const col = move[1];
-            const position = `${row}${letters[col - 1]}`;
-            validMoves.push(position);
-        });
-        console.log(validMoves);
-        giveHints(validMoves);
-    }   
+    }
+    //convert coordinates back to position format
+    const validMoves = [];
+    moves.forEach(move => {
+        const row = move[0];
+        const col = move[1];
+        const position = `${row}${letters[col - 1]}`;
+        validMoves.push(position);
+    });
+    console.log(validMoves);
+    giveHints(validMoves);
 }
 
 //Check if there is a piece on the tile and if it is an enemy piece
@@ -139,12 +138,9 @@ function checkForPiece(position, myColor) {
         if(tile.innerText[0] !== myColor) {
             return true;
         }else {
-            console.log(1);
             return false;
         }
     }else {
-        console.log(2);
-        console.log(tile.innerText);
         return false;
     }
 }
