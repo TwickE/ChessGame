@@ -284,6 +284,98 @@ function moves(pieceName, position) {
         }
     }
 
+    //QUEEN
+    if(pieceName === "queen") {
+        //can move to the top right
+        for(let i = row + 1, j = col + 1; i <= 8 && j <= 8; i++, j++) {
+            if(checkForPiece(`${i}${letters[j - 1]}`, turn) === "noPiece") {
+                moves.push([i, j]);
+            }else if(checkForPiece(`${i}${letters[j - 1]}`, turn) === "pieceEnemy") {
+                moves.push([i, j]);
+                break;
+            }else {
+                break;
+            }
+        }
+        //can move to the top left
+        for(let i = row + 1, j = col - 1; i <= 8 && j >= 1; i++, j--) {
+            if(checkForPiece(`${i}${letters[j - 1]}`, turn) === "noPiece") {
+                moves.push([i, j]);
+            }else if(checkForPiece(`${i}${letters[j - 1]}`, turn) === "pieceEnemy") {
+                moves.push([i, j]);
+                break;
+            }else {
+                break;
+            }
+        }
+        //can move to the bottom right
+        for(let i = row - 1, j = col + 1; i >= 1 && j <= 8; i--, j++) {
+            if(checkForPiece(`${i}${letters[j - 1]}`, turn) === "noPiece") {
+                moves.push([i, j]);
+            }else if(checkForPiece(`${i}${letters[j - 1]}`, turn) === "pieceEnemy") {
+                moves.push([i, j]);
+                break;
+            }else {
+                break;
+            }
+        }
+        //can move to the bottom left
+        for(let i = row - 1, j = col - 1; i >= 1 && j >= 1; i--, j--) {
+            if(checkForPiece(`${i}${letters[j - 1]}`, turn) === "noPiece") {
+                moves.push([i, j]);
+            }else if(checkForPiece(`${i}${letters[j - 1]}`, turn) === "pieceEnemy") {
+                moves.push([i, j]);
+                break;
+            }else {
+                break;
+            }
+        }
+        //can move to the top
+        for(let i = row + 1; i <= 8; i++) {
+            if(checkForPiece(`${i}${letters[col - 1]}`, turn) === "noPiece") {
+                moves.push([i, col]);
+            }else if(checkForPiece(`${i}${letters[col - 1]}`, turn) === "pieceEnemy") {
+                moves.push([i, col]);
+                break;
+            }else {
+                break;
+            }
+        }
+        //can move to the bottom
+        for(let i = row - 1; i >= 1; i--) {
+            if(checkForPiece(`${i}${letters[col - 1]}`, turn) === "noPiece") {
+                moves.push([i, col]);
+            }else if(checkForPiece(`${i}${letters[col - 1]}`, turn) === "pieceEnemy") {
+                moves.push([i, col]);
+                break;
+            }else {
+                break;
+            }
+        }
+        //can move to the right
+        for(let i = col + 1; i <= 8; i++) {
+            if(checkForPiece(`${row}${letters[i - 1]}`, turn) === "noPiece") {
+                moves.push([row, i]);
+            }else if(checkForPiece(`${row}${letters[i - 1]}`, turn) === "pieceEnemy") {
+                moves.push([row, i]);
+                break;
+            }else {
+                break;
+            }
+        }
+        //can move to the left
+        for(let i = col - 1; i >= 1; i--) {
+            if(checkForPiece(`${row}${letters[i - 1]}`, turn) === "noPiece") {
+                moves.push([row, i]);
+            }else if(checkForPiece(`${row}${letters[i - 1]}`, turn) === "pieceEnemy") {
+                moves.push([row, i]);
+                break;
+            }else {
+                break;
+            }
+        }
+    }
+
     //convert coordinates back to position format
     const validMoves = [];
     moves.forEach(move => {
