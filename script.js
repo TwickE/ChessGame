@@ -236,6 +236,54 @@ function moves(pieceName, position) {
         }
     }
 
+    //BISHOP
+    if(pieceName === "bishop") {
+        //can move to the top right
+        for(let i = row + 1, j = col + 1; i <= 8 && j <= 8; i++, j++) {
+            if(checkForPiece(`${i}${letters[j - 1]}`, turn) === "noPiece") {
+                moves.push([i, j]);
+            }else if(checkForPiece(`${i}${letters[j - 1]}`, turn) === "pieceEnemy") {
+                moves.push([i, j]);
+                break;
+            }else {
+                break;
+            }
+        }
+        //can move to the top left
+        for(let i = row + 1, j = col - 1; i <= 8 && j >= 1; i++, j--) {
+            if(checkForPiece(`${i}${letters[j - 1]}`, turn) === "noPiece") {
+                moves.push([i, j]);
+            }else if(checkForPiece(`${i}${letters[j - 1]}`, turn) === "pieceEnemy") {
+                moves.push([i, j]);
+                break;
+            }else {
+                break;
+            }
+        }
+        //can move to the bottom right
+        for(let i = row - 1, j = col + 1; i >= 1 && j <= 8; i--, j++) {
+            if(checkForPiece(`${i}${letters[j - 1]}`, turn) === "noPiece") {
+                moves.push([i, j]);
+            }else if(checkForPiece(`${i}${letters[j - 1]}`, turn) === "pieceEnemy") {
+                moves.push([i, j]);
+                break;
+            }else {
+                break;
+            }
+        }
+        //can move to the bottom left
+        for(let i = row - 1, j = col - 1; i >= 1 && j >= 1; i--, j--) {
+            if(checkForPiece(`${i}${letters[j - 1]}`, turn) === "noPiece") {
+                moves.push([i, j]);
+            }else if(checkForPiece(`${i}${letters[j - 1]}`, turn) === "pieceEnemy") {
+                moves.push([i, j]);
+                break;
+            }else {
+                break;
+            }
+        }
+    }
+
     //convert coordinates back to position format
     const validMoves = [];
     moves.forEach(move => {
