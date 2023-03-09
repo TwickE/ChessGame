@@ -47,6 +47,7 @@ document.querySelectorAll('.tile').forEach(tile => {
                 tile.style.backgroundColor = pieceSelected;
                 const pieceName = tile.innerText.slice(1);
                 const position = tile.id;
+                console.log(pieceName, position);
                 moves(pieceName, position);
             }
         }
@@ -61,9 +62,9 @@ function moves(pieceName, position) {
     const row = parseInt(position[0]);
     const col = letters.indexOf(position[1]) + 1;
     console.log(row, col);
-
+    console.dir(pieceName);
     //PAWN
-    if(pieceName === "pawn") {
+    if(pieceName === "pawn ") {
         //check if pawn is on starting position
         let isFirstMove = false;
         if (row === 2 && turn === "W") {
@@ -121,7 +122,7 @@ function moves(pieceName, position) {
     }
 
     //ROOK
-    if(pieceName === "rook") {
+    if(pieceName === "rook ") {
         //can move to the top
         for(let i = row + 1; i <= 8; i++) {
             if(checkForPiece(`${i}${letters[col - 1]}`, turn) === "noPiece") {
@@ -169,7 +170,7 @@ function moves(pieceName, position) {
     }
 
     //KNIGHT
-    if(pieceName === "knight") {
+    if(pieceName === "knight ") {
         //can move two tiles up and one tile to the right
         try {
             if(checkForPiece(`${row + 2}${letters[col]}`, turn) !== "pieceTeam") {
@@ -237,7 +238,7 @@ function moves(pieceName, position) {
     }
 
     //BISHOP
-    if(pieceName === "bishop") {
+    if(pieceName === "bishop ") {
         //can move to the top right
         for(let i = row + 1, j = col + 1; i <= 8 && j <= 8; i++, j++) {
             if(checkForPiece(`${i}${letters[j - 1]}`, turn) === "noPiece") {
@@ -285,7 +286,7 @@ function moves(pieceName, position) {
     }
 
     //QUEEN
-    if(pieceName === "queen") {
+    if(pieceName === "queen ") {
         //can move to the top right
         for(let i = row + 1, j = col + 1; i <= 8 && j <= 8; i++, j++) {
             if(checkForPiece(`${i}${letters[j - 1]}`, turn) === "noPiece") {
@@ -377,7 +378,7 @@ function moves(pieceName, position) {
     }
 
     //KING
-    if(pieceName === "king") {
+    if(pieceName === "king ") {
         //can move one tile to the top right
         if(row + 1 <= 8 && col + 1 <= 8) {
             if(checkForPiece(`${row + 1}${letters[col]}`, turn) !== "pieceTeam") {
@@ -427,7 +428,7 @@ function moves(pieceName, position) {
             }
         }
     }
-
+    
     //convert coordinates back to position format
     const validMoves = [];
     moves.forEach(move => {
