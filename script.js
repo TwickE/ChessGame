@@ -55,22 +55,6 @@ document.querySelectorAll('.tile').forEach(tile => {
     });
 }); 
 
-//Moves the piece to the selected tile
-function movePiece(moves, pieceName, position) {
-    document.querySelectorAll('.tile').forEach(tile => {
-        tile.addEventListener('click', function() {
-            moves.forEach(move => {
-                if(tile.id === move) {
-                    tile.innerText = pieceName;
-                    tile.innerHTML = `${turn + tile.innerText} <img class='img' src="/images/${turn + tile.innerText}.png" alt="${turn + tile.innerText}">`;
-                    const previousTile = document.getElementById(position);
-                    previousTile.innerText = "";
-                }
-            });
-        });
-    });
-}
-
 //Give the hints to where the pieces can move
 function hintMoves(pieceName, position) {
     const moves = [];
@@ -79,9 +63,9 @@ function hintMoves(pieceName, position) {
     const row = parseInt(position[0]);
     const col = letters.indexOf(position[1]) + 1;
     console.log(row, col);
-    console.dir(pieceName);
+    console.log(pieceName);
     //PAWN
-    if(pieceName === "pawn ") {
+    if(pieceName === "pawn " || pieceName === "pawn") {
         //check if pawn is on starting position
         let isFirstMove = false;
         if (row === 2 && turn === "W") {
@@ -485,8 +469,29 @@ function giveHints(validMoves) {
     });
 }
 
-/* document.addEventListener("keydown", function(event) {
-    if(event.key == "Enter") {
+//Moves the piece to the selected tile
+function movePiece(moves, pieceName, position) {
+    document.querySelectorAll('.tile').forEach(tile => {
+        tile.addEventListener('click', function() {
+            moves.forEach(move => {
+                if(tile.id === move) {
+                    tile.innerText = pieceName;
+                    tile.innerHTML = `${turn + tile.innerText} <img class='img' src="/images/${turn + tile.innerText}.png" alt="${turn + tile.innerText}">`;
+                    tile.style.cursor = 'pointer';
+                    const previousTile = document.getElementById(position);
+                    previousTile.innerText = "";
+                    previousTile.style.cursor = "default";
+                    togelTurn(turn);
+                    moves = [];
+                }
+            });
+        });
+    });
+}
+
+function togelTurn() {
+    if(turn === "W") {
+        turn = "B";
         const body = document.querySelector('body');
         body.style.backgroundColor = '#353333';
 
@@ -497,13 +502,33 @@ function giveHints(validMoves) {
         alert.style.border = '3px solid #c9c9c9';
         alert.style.borderRadius = '10px';
 
-        const turn = document.getElementById('turn');
-        turn.style.color = '#c9c9c9';
-        turn.innerText = "Black's Turn";
+        const turnElement = document.getElementById('turn');
+        turnElement.style.color = '#c9c9c9';
+        turnElement.innerText = "Black's Turn";
+
+        setTimeout(function(){
+            alert.style.visibility = 'hidden';
+            alert.style.opacity = '0';
+       }, 1000);
+    }else {
+        turn = "W";
+        const body = document.querySelector('body');
+        body.style.backgroundColor = '#C9C9C9';
+
+        const alert = document.querySelector('.container-turn');
+        alert.style.visibility = 'visible';
+        alert.style.opacity = '1';
+        alert.style.backgroundColor = '#C9C9C9';
+        alert.style.border = '3px solid #353333';
+        alert.style.borderRadius = '10px';
+
+        const turnElement = document.getElementById('turn');
+        turnElement.style.color = '#353333';
+        turnElement.innerText = "White's Turn";
 
         setTimeout(function(){
             alert.style.visibility = 'hidden';
             alert.style.opacity = '0';
        }, 1000);
     }
-}); */
+}
