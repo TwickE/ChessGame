@@ -65,7 +65,7 @@ function hintMoves(pieceName, position) {
     console.log(row, col);
     console.log(pieceName);
     //PAWN
-    if(pieceName === "pawn " || pieceName === "pawn") {
+    if(pieceName === "pawn ") {
         //check if pawn is on starting position
         let isFirstMove = false;
         if (row === 2 && turn === "W") {
@@ -75,7 +75,7 @@ function hintMoves(pieceName, position) {
         }
 
         //calculate possible moves
-        if(isFirstMove) {
+        if(isFirstMove && turn === "W") {
             //can move one or two tiles forward
             if(checkForPiece(`${row + 1}${letters[col - 1]}`, turn) === "noPiece"){
                 moves.push([row + 1, col]);
@@ -98,7 +98,7 @@ function hintMoves(pieceName, position) {
                 console.log(err);
             }
             
-        }else {
+        }else if(turn === "W") {
             //can move one tile forward
             if(checkForPiece(`${row + 1}${letters[col - 1]}`, turn) === "noPiece"){
                 moves.push([row + 1, col]);
@@ -115,6 +115,50 @@ function hintMoves(pieceName, position) {
             try {
                 if(checkForPiece(`${row + 1}${letters[col]}`, turn) === "pieceEnemy") {
                     moves.push([row + 1, col + 1]);
+                }
+            }catch(err) {
+                console.log(err);
+            }
+        }
+        if(isFirstMove && turn === "B") {
+            //can move one or two tiles forward
+            if(checkForPiece(`${row - 1}${letters[col - 1]}`, turn) === "noPiece"){
+                moves.push([row - 1, col]);
+                moves.push([row - 2, col]);
+            }
+
+            //can move one tile diagonally forward if there is an enemy piece to eat
+            try {
+                if(checkForPiece(`${row - 1}${letters[col - 2]}`, turn) === "pieceEnemy") {
+                    moves.push([row - 1, col - 1]);
+                }
+            }catch(err) {
+                console.log(err);
+            }
+            try {
+                if(checkForPiece(`${row - 1}${letters[col]}`, turn) === "pieceEnemy") {
+                    moves.push([row - 1, col + 1]);
+                }
+            }catch(err) {
+                console.log(err);
+            }
+        }else if(turn === "B") {
+            //can move one tile forward
+            if(checkForPiece(`${row - 1}${letters[col - 1]}`, turn) === "noPiece"){
+                moves.push([row - 1, col]);
+            }
+
+            //can move one tile diagonally forward if there is an enemy piece to eat
+            try {
+                if(checkForPiece(`${row - 1}${letters[col - 2]}`, turn) === "pieceEnemy") {
+                    moves.push([row - 1, col - 1]);
+                }
+            }catch(err) {
+                console.log(err);
+            }
+            try {
+                if(checkForPiece(`${row - 1}${letters[col]}`, turn) === "pieceEnemy") {
+                    moves.push([row - 1, col + 1]);
                 }
             }catch(err) {
                 console.log(err);
