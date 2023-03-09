@@ -527,6 +527,8 @@ function movePiece(moves, pieceName, position) {
                     previousTile.style.cursor = "default";
                     togelTurn(turn);
                     moves = [];
+                }else {
+                    moves = [];
                 }
             });
         });
