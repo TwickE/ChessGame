@@ -525,6 +525,7 @@ function movePiece(moves, pieceName, position) {
                     const previousTile = document.getElementById(position);
                     previousTile.innerText = "";
                     previousTile.style.cursor = "default";
+                    winner();
                     togelTurn(turn);
                     moves = [];
                 }else {
@@ -535,46 +536,62 @@ function movePiece(moves, pieceName, position) {
     });
 }
 
+//Creates an alert
+function alert(backgroundColor, borderColor, color, text, end) {
+    const body = document.querySelector('body');
+    body.style.backgroundColor = backgroundColor;
+
+    const alert = document.querySelector('.container-turn');
+    alert.style.visibility = 'visible';
+    alert.style.opacity = '1';
+    alert.style.backgroundColor = backgroundColor;
+    alert.style.border = '3px solid ' + borderColor;
+    alert.style.borderRadius = '10px';
+
+    const turnElement = document.getElementById('turn');
+    turnElement.style.color = color;
+    turnElement.innerText = text;
+
+    if(end === true) {
+        setTimeout(function(){
+            alert.style.visibility = 'hidden';
+            alert.style.opacity = '0';
+            window.location.reload();
+        }, 1000);
+    }else {
+        setTimeout(function(){
+            alert.style.visibility = 'hidden';
+            alert.style.opacity = '0';
+        }, 1000);
+    } 
+}
+
+//Toggles the turn
 function togelTurn() {
     if(turn === "W") {
         turn = "B";
-        const body = document.querySelector('body');
-        body.style.backgroundColor = '#353333';
-
-        const alert = document.querySelector('.container-turn');
-        alert.style.visibility = 'visible';
-        alert.style.opacity = '1';
-        alert.style.backgroundColor = '#353333';
-        alert.style.border = '3px solid #c9c9c9';
-        alert.style.borderRadius = '10px';
-
-        const turnElement = document.getElementById('turn');
-        turnElement.style.color = '#c9c9c9';
-        turnElement.innerText = "Black's Turn";
-
-        setTimeout(function(){
-            alert.style.visibility = 'hidden';
-            alert.style.opacity = '0';
-       }, 1000);
+        alert('#353333', '#C9C9C9', '#C9C9C9', "Black's Turn", false)
     }else {
         turn = "W";
-        const body = document.querySelector('body');
-        body.style.backgroundColor = '#C9C9C9';
+        alert('#C9C9C9', '#353333', '#353333', "White's Turn", false)
+    }
+}
 
-        const alert = document.querySelector('.container-turn');
-        alert.style.visibility = 'visible';
-        alert.style.opacity = '1';
-        alert.style.backgroundColor = '#C9C9C9';
-        alert.style.border = '3px solid #353333';
-        alert.style.borderRadius = '10px';
-
-        const turnElement = document.getElementById('turn');
-        turnElement.style.color = '#353333';
-        turnElement.innerText = "White's Turn";
-
-        setTimeout(function(){
-            alert.style.visibility = 'hidden';
-            alert.style.opacity = '0';
-       }, 1000);
+//Checks if there is a winner
+function winner() {
+    let winnerW = "";
+    let winnerB = "";
+    document.querySelectorAll('.tile').forEach(tile => {
+        if(tile.innerText === "Wking") {
+            winnerW = "White";
+        }
+        if(tile.innerText === "Bking") {
+            winnerB = "Black";
+        }
+    });
+    if(winnerW === "") {
+        alert('#353333', '#C9C9C9', '#C9C9C9', "Black Wins", true);
+    }else if(winnerB === "") {
+        alert('#C9C9C9', '#353333', '#353333', "White Wins", true);
     }
 }
