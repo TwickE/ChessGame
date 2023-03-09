@@ -48,14 +48,31 @@ document.querySelectorAll('.tile').forEach(tile => {
                 const pieceName = tile.innerText.slice(1);
                 const position = tile.id;
                 console.log(pieceName, position);
-                moves(pieceName, position);
+                const moves = hintMoves(pieceName, position);
+                movePiece(moves, pieceName, position);
             }
         }
     });
 }); 
 
-//Move the pieces
-function moves(pieceName, position) {
+//Moves the piece to the selected tile
+function movePiece(moves, pieceName, position) {
+    document.querySelectorAll('.tile').forEach(tile => {
+        tile.addEventListener('click', function() {
+            moves.forEach(move => {
+                if(tile.id === move) {
+                    tile.innerText = pieceName;
+                    tile.innerHTML = `${turn + tile.innerText} <img class='img' src="/images/${turn + tile.innerText}.png" alt="${turn + tile.innerText}">`;
+                    const previousTile = document.getElementById(position);
+                    previousTile.innerText = "";
+                }
+            });
+        });
+    });
+}
+
+//Give the hints to where the pieces can move
+function hintMoves(pieceName, position) {
     const moves = [];
     //convert position to coordinates
     const letters = ["a", "b", "c", "d", "e", "f", "g", "h"];
@@ -437,8 +454,9 @@ function moves(pieceName, position) {
         const position = `${row}${letters[col - 1]}`;
         validMoves.push(position);
     });
-    console.log(validMoves);
     giveHints(validMoves);
+    console.log(validMoves);
+    return validMoves;
 }
 
 //Check if there is a piece on the tile and if it is an enemy piece
