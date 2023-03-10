@@ -31,7 +31,7 @@ coloring();
 function insertImage() {
     document.querySelectorAll('.tile').forEach(image => {
         if (image.innerText.length !== 0) {
-            image.innerHTML = `${image.innerText} <img class='img' src="/images/${image.innerText}.png" alt="${image.innerText}">`;
+            image.innerHTML = `${image.innerText}<img class='img' src="/images/${image.innerText}.png" alt="${image.innerText}">`;
             image.style.cursor = 'pointer';
         }
     });
@@ -64,8 +64,9 @@ function hintMoves(pieceName, position) {
     const col = letters.indexOf(position[1]) + 1;
     console.log(row, col);
     console.log(pieceName);
+
     //PAWN
-    if(pieceName === "pawn ") {
+    if(pieceName === "pawn") {
         //check if pawn is on starting position
         let isFirstMove = false;
         if (row === 2 && turn === "W") {
@@ -167,7 +168,7 @@ function hintMoves(pieceName, position) {
     }
 
     //ROOK
-    if(pieceName === "rook ") {
+    if(pieceName === "rook") {
         //can move to the top
         for(let i = row + 1; i <= 8; i++) {
             if(checkForPiece(`${i}${letters[col - 1]}`, turn) === "noPiece") {
@@ -215,7 +216,7 @@ function hintMoves(pieceName, position) {
     }
 
     //KNIGHT
-    if(pieceName === "knight ") {
+    if(pieceName === "knight") {
         //can move two tiles up and one tile to the right
         try {
             if(checkForPiece(`${row + 2}${letters[col]}`, turn) !== "pieceTeam") {
@@ -283,7 +284,7 @@ function hintMoves(pieceName, position) {
     }
 
     //BISHOP
-    if(pieceName === "bishop ") {
+    if(pieceName === "bishop") {
         //can move to the top right
         for(let i = row + 1, j = col + 1; i <= 8 && j <= 8; i++, j++) {
             if(checkForPiece(`${i}${letters[j - 1]}`, turn) === "noPiece") {
@@ -331,7 +332,7 @@ function hintMoves(pieceName, position) {
     }
 
     //QUEEN
-    if(pieceName === "queen ") {
+    if(pieceName === "queen") {
         //can move to the top right
         for(let i = row + 1, j = col + 1; i <= 8 && j <= 8; i++, j++) {
             if(checkForPiece(`${i}${letters[j - 1]}`, turn) === "noPiece") {
@@ -423,7 +424,7 @@ function hintMoves(pieceName, position) {
     }
 
     //KING
-    if(pieceName === "king ") {
+    if(pieceName === "king") {
         //can move one tile to the top right
         if(row + 1 <= 8 && col + 1 <= 8) {
             if(checkForPiece(`${row + 1}${letters[col]}`, turn) !== "pieceTeam") {
@@ -520,13 +521,18 @@ function movePiece(moves, pieceName, position) {
             moves.forEach(move => {
                 if(tile.id === move) {
                     tile.innerText = pieceName;
-                    tile.innerHTML = `${turn + tile.innerText} <img class='img' src="/images/${turn + tile.innerText}.png" alt="${turn + tile.innerText}">`;
+                    tile.innerHTML = `${turn + tile.innerText}<img class='img' src="/images/${turn + tile.innerText}.png" alt="${turn + tile.innerText}">`;
                     tile.style.cursor = 'pointer';
                     const previousTile = document.getElementById(position);
                     previousTile.innerText = "";
                     previousTile.style.cursor = "default";
-                    winner();
-                    togelTurn(turn);
+                    if(winner() === 1) {
+                        alert('#353333', '#C9C9C9', '#C9C9C9', "Black Wins", true);
+                    }else if(winner() === 2) {
+                        alert('#C9C9C9', '#353333', '#353333', "White Wins", true);
+                    }else {
+                        toggleTurn(turn);
+                    }
                     moves = [];
                 }else {
                     moves = [];
@@ -567,7 +573,7 @@ function alert(backgroundColor, borderColor, color, text, end) {
 }
 
 //Toggles the turn
-function togelTurn() {
+function toggleTurn() {
     if(turn === "W") {
         turn = "B";
         alert('#353333', '#C9C9C9', '#C9C9C9', "Black's Turn", false)
@@ -579,19 +585,19 @@ function togelTurn() {
 
 //Checks if there is a winner
 function winner() {
-    let winnerW = "";
-    let winnerB = "";
+    let winnerW = false;
+    let winnerB = false;
     document.querySelectorAll('.tile').forEach(tile => {
         if(tile.innerText === "Wking") {
-            winnerW = "White";
+            winnerW = true;
         }
         if(tile.innerText === "Bking") {
-            winnerB = "Black";
+            winnerB = true;
         }
     });
-    if(winnerW === "") {
-        alert('#353333', '#C9C9C9', '#C9C9C9', "Black Wins", true);
-    }else if(winnerB === "") {
-        alert('#C9C9C9', '#353333', '#353333', "White Wins", true);
+    if(winnerW === false) {
+        return 1;
+    }else if(winnerB === false) {
+        return 2;
     }
 }
