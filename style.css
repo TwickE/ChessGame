@@ -84,9 +84,9 @@ table tr:last-child td {
 }
 
 .hintMove {
-    background: url(/images/HintMove.png);
+    background: url(/ChessGame/images/HintMove.png);
 }
 
 .hintEat {
-    background: url(/images/HintEat.png);
+    background: url(/ChessGame/images/HintEat.png);
 }
