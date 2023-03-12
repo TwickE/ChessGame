@@ -213,6 +213,7 @@ function hintMoves(pieceName, position) {
                 break;
             }
         }
+        //castling
     }
 
     //KNIGHT
@@ -527,9 +528,9 @@ function movePiece(moves, pieceName, position) {
                     previousTile.innerText = "";
                     previousTile.style.cursor = "default";
                     if(winner() === 1) {
-                        alert('#353333', '#C9C9C9', '#C9C9C9', "Black Wins", true);
+                        alert("Black Wins", true);
                     }else if(winner() === 2) {
-                        alert('#C9C9C9', '#353333', '#353333', "White Wins", true);
+                        alert("White Wins", true);
                     }else {
                         toggleTurn(turn);
                     }
@@ -543,19 +544,21 @@ function movePiece(moves, pieceName, position) {
 }
 
 //Creates an alert
-function alert(backgroundColor, borderColor, color, text, end) {
-    const body = document.querySelector('body');
-    body.style.backgroundColor = backgroundColor;
-
+function alert(text, end) {
     const alert = document.querySelector('.container-turn');
     alert.style.visibility = 'visible';
     alert.style.opacity = '1';
-    alert.style.backgroundColor = backgroundColor;
-    alert.style.border = '3px solid ' + borderColor;
-    alert.style.borderRadius = '10px';
+
+    const imgTurn = document.getElementById('imgTurn');
+    if(text === "White's Turn" || text === "White Wins") {
+        imgTurn.src = "/images/Wking.png";
+        imgTurn.alt = "Wking";
+    }else {
+        imgTurn.src = "/images/Bking.png";
+        imgTurn.alt = "Bking";
+    }
 
     const turnElement = document.getElementById('turn');
-    turnElement.style.color = color;
     turnElement.innerText = text;
 
     if(end === true) {
@@ -563,7 +566,7 @@ function alert(backgroundColor, borderColor, color, text, end) {
             alert.style.visibility = 'hidden';
             alert.style.opacity = '0';
             window.location.reload();
-        }, 1000);
+        }, 3000);
     }else {
         setTimeout(function(){
             alert.style.visibility = 'hidden';
@@ -576,10 +579,10 @@ function alert(backgroundColor, borderColor, color, text, end) {
 function toggleTurn() {
     if(turn === "W") {
         turn = "B";
-        alert('#353333', '#C9C9C9', '#C9C9C9', "Black's Turn", false)
+        alert("Black's Turn", false)
     }else {
         turn = "W";
-        alert('#C9C9C9', '#353333', '#353333', "White's Turn", false)
+        alert("White's Turn", false)
     }
 }
 
