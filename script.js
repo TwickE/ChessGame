@@ -80,6 +80,8 @@ function hintMoves(pieceName, position) {
             //can move one or two tiles forward
             if(checkForPiece(`${row + 1}${letters[col - 1]}`, turn) === "noPiece"){
                 moves.push([row + 1, col]);
+            }
+            if(checkForPiece(`${row + 2}${letters[col - 1]}`, turn) === "noPiece"){
                 moves.push([row + 2, col]);
             }
 
@@ -125,6 +127,8 @@ function hintMoves(pieceName, position) {
             //can move one or two tiles forward
             if(checkForPiece(`${row - 1}${letters[col - 1]}`, turn) === "noPiece"){
                 moves.push([row - 1, col]);
+            }
+            if(checkForPiece(`${row - 2}${letters[col - 1]}`, turn) === "noPiece"){
                 moves.push([row - 2, col]);
             }
 
