@@ -31,7 +31,7 @@ coloring();
 function insertImage() {
     document.querySelectorAll('.tile').forEach(image => {
         if (image.innerText.length !== 0) {
-            image.innerHTML = `${image.innerText}<img class='img' src="/images/${image.innerText}.png" alt="${image.innerText}">`;
+            image.innerHTML = `${image.innerText}<img class='img' src="/ChessGame/images/${image.innerText}.png" alt="${image.innerText}">`;
             image.style.cursor = 'pointer';
         }
     });
@@ -522,7 +522,7 @@ function movePiece(moves, pieceName, position) {
             moves.forEach(move => {
                 if(tile.id === move) {
                     tile.innerText = pieceName;
-                    tile.innerHTML = `${turn + tile.innerText}<img class='img' src="/images/${turn + tile.innerText}.png" alt="${turn + tile.innerText}">`;
+                    tile.innerHTML = `${turn + tile.innerText}<img class='img' src="/ChessGame/images/${turn + tile.innerText}.png" alt="${turn + tile.innerText}">`;
                     tile.style.cursor = 'pointer';
                     const previousTile = document.getElementById(position);
                     previousTile.innerText = "";
@@ -551,10 +551,10 @@ function alert(text, end) {
 
     const imgTurn = document.getElementById('imgTurn');
     if(text === "White's Turn" || text === "White Wins") {
-        imgTurn.src = "/images/Wking.png";
+        imgTurn.src = "/ChessGame/images/Wking.png";
         imgTurn.alt = "Wking";
     }else {
-        imgTurn.src = "/images/Bking.png";
+        imgTurn.src = "/ChessGame/images/Bking.png";
         imgTurn.alt = "Bking";
     }
 
