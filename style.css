@@ -6,11 +6,11 @@
 }
 
 body {
-    font-family: "Poppins", sans-serif;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    font-family: "Poppins", sans-serif;
     background-color: #242220;
 }
 
@@ -46,7 +46,8 @@ body {
 
 table {
     border-collapse: collapse;
-    margin: 0 auto;
+    width: 640px;
+    height: 640px;
 }
 
 td {
@@ -89,4 +90,50 @@ table tr:last-child td {
 
 .hintEat {
     background: url(/ChessGame/images/HintEat.png);
+}
+
+@media (max-width:650px){
+    table {
+        transform: scale(0.8);
+    }
+
+    .container-turn {
+        width: 200px;
+        height: 110px;
+    }
+
+    .container-turn img {
+        width: 40px;
+        height: 40px;
+    }
+    
+    #turn {
+        font-size: 25px;
+    }
+}
+
+@media (max-width:550px){
+    table {
+        transform: scale(0.6);
+    }
+
+    .container-turn {
+        width: 180px;
+        height: 100px;
+    }
+
+    .container-turn img {
+        width: 35px;
+        height: 35px;
+    }
+    
+    #turn {
+        font-size: 20px;
+    }
+}
+
+@media (max-width:400px){
+    table {
+        transform: scale(0.5);
+    }
 }
