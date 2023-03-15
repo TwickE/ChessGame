@@ -44,6 +44,13 @@ body {
     font-size: 30px;
 }
 
+h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: white;
+    font-size: 3rem;
+}
+
 table {
     border-collapse: collapse;
     width: 640px;
@@ -93,6 +100,11 @@ table tr:last-child td {
 }
 
 @media (max-width:650px){
+    h1 {
+        margin-bottom: 0;
+        font-size: 2.5rem;
+    }
+
     table {
         transform: scale(0.8);
     }
